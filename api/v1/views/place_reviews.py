@@ -67,7 +67,7 @@ def post_review(place_id):
     setattr(review, 'place_id', place_id)
     storage.new(review)
     storage.save()
-    return make_response(jsonify(place.to_dict()), 201)
+    return make_response(jsonify(review.to_dict()), 201)
 
 @app_views.route('/reviews/<review_id>', methods=['PUT'],
                  strict_slashes=False)
@@ -82,7 +82,7 @@ def update_review(review_id):
         abort(400, "Not a JSON")
 
     for k, v in body_request.items():
-        if k not in ['id', 'review_id', 'user_id', 'created_at', 'updated_at']:
+        if k not in ['id', 'place_id', 'user_id', 'created_at', 'updated_at']:
             setattr(review, k, v)
 
     storage.save()
